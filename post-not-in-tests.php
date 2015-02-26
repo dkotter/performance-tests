@@ -1,10 +1,25 @@
 <?php
 ini_set( 'max_execution_time', 0 );
 
+// Include our base test class.
 include __DIR__ . '/tests.php';
 
+/*
+ * Class to test post__not_in query performance.
+ */
 class Post_Not_In_Tests extends Tests {
 
+	/*
+	 * Run each individual test.
+	 *
+	 * Run the correct query based on the test we are doing,
+	 * which for now is just a normal query and a post__not_in
+	 * query.
+	 *
+	 * @param int $n Number of tests to run.
+	 * @param string $test Test to run.
+	 * @return void
+	 */
 	public function run_test( $n, $test ) {
 		$query_args = array(
 			'post_type'      => 'post',
