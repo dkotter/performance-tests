@@ -25,7 +25,7 @@ class Tests {
 			$start = $this->start_timer();
 			// Run actual test here
 			$stop = $this->stop_timer();
-			$this->add_result( 'test name', $this->get_elapsed_time( $start, $stop ) );
+			$this->add_result( $test, $this->get_elapsed_time( $start, $stop ) );
 		}
 	}
 
@@ -100,17 +100,4 @@ class Tests {
 		return min( $array );
 	}
 
-}
-
-$test = new Tests();
-$test->run_tests();
-$results = $test->get_results();
-
-foreach ( $results as $function => $data ) {
-	echo "$function: \n\n";
-	echo "  --------\n";
-	echo "     Range: {$data['min']} - {$data['max']}\n";
-	echo "    Median: {$data['median']}\n";
-	echo "      Mean: {$data['mean']}\n";
-	echo "        SD: {$data['sd']}\n\n";
 }
