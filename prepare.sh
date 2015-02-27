@@ -5,8 +5,6 @@
 # Author: Benjamin J. Balter ( ben@balter.com | ben.balter.com )
 # License: GPL3
 
-composer create-project wp-cli/wp-cli --no-dev
-
 mkdir -p tmp
 
 export WP_CORE_DIR=/tmp/wordpress
@@ -21,6 +19,9 @@ tar --strip-components=1 -zxmf tmp/wordpress.tar.gz -C $WP_CORE_DIR
 
 tests=$(basename $(pwd))
 mv tests $WP_CORE_DIR
+
+cd ~
+composer create-project wp-cli/wp-cli --no-dev
 
 cd /tmp/wordpress
 
