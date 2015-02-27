@@ -29,5 +29,7 @@ wp-cli/bin/wp core install --url=http://example.com --title="Just another test s
 curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --count=30
 
 pwd
+ls -la
 cd ../..
+ls -la
 pwd
