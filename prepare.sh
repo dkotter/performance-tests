@@ -33,6 +33,6 @@ curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --co
 
 pwd
 ls -la
-cd ../..
+cd ~
 ls -la
 pwd
