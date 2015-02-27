@@ -5,6 +5,9 @@
 # Author: Benjamin J. Balter ( ben@balter.com | ben.balter.com )
 # License: GPL3
 
+pwd
+ls -la
+
 mkdir -p tmp
 
 export WP_CORE_DIR=/tmp/wordpress
