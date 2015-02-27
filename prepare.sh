@@ -22,12 +22,3 @@ tar --strip-components=1 -zxmf tmp/wordpress.tar.gz -C $WP_CORE_DIR
 svn co --ignore-externals http://unit-tests.svn.wordpress.org/trunk/ $WP_TESTS_DIR
 
 wget -nv -O $WP_TESTS_DIR/wp-tests-config.php https://raw.github.com/tierra/wordpress-plugin-tests/setup/wp-tests-config.php
-
-# Put various components in proper folders
-plugin_slug=$(basename $(pwd))
-plugin_dir=$WP_CORE_DIR/wp-content/plugins/$plugin_slug
-
-cd ..
-mv $plugin_slug $plugin_dir
-
-cd $plugin_dir
