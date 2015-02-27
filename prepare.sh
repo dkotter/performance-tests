@@ -20,11 +20,10 @@ tar --strip-components=1 -zxmf tmp/wordpress.tar.gz -C $WP_CORE_DIR
 tests=$(basename $(pwd))
 mv tests $WP_CORE_DIR
 
-composer create-project wp-cli/wp-cli /usr/share/wp-cli --no-dev
-sudo ln -s /usr/share/wp-cli/bin/wp /usr/bin/wp
+composer create-project wp-cli/wp-cli $WP_CORE_DIR/wp-cli --no-dev
 
 cd $WP_CORE_DIR
 
-wp core config --dbname=wordpress_test --dbuser=root --dbpass= --dbhost=localhost
-wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password
-curl http://loripsum.net/api/5 | wp post generate --post_content --count=30
+wp-cli/bin/wp core config --dbname=wordpress_test --dbuser=root --dbpass= --dbhost=localhost
+wp-cli/bin/wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password
+curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --count=30
