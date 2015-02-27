@@ -29,3 +29,4 @@ wp-cli/bin/wp core install --url=http://example.com --title="Just another test s
 curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --count=30
 
 cd ~/build/dkotter/performance-tests
+chmod a+x tests.sh
