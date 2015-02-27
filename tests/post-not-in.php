@@ -23,14 +23,15 @@ class Post_Not_In_Tests extends Tests {
 	public function run_test( $n, $test ) {
 		$query_args = array(
 			'post_type'      => 'post',
-			'post_status'    => array( 'publish', 'private' ),
+			'post_status'    => 'publish',
 			'posts_per_page' => 18,
 		);
 
 		if ( 'normal' === $test ) {
 			$query_args['posts_per_page'] = 23;
 		} else if ( 'post__not_in' === $test ) {
-			$query_args['post__not_in'] = array( 1, 2, 3, 4, 5 );
+			$recent_posts = get_posts( array( 'posts_per_page' => 5, 'post_status' => 'publish', 'fields'=> 'ids' ) );
+			$query_args['post__not_in'] = $recent_posts;
 		}
 
 		for ( $i = 0; $i < $n; $i++ ) {

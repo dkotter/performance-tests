@@ -1,9 +1,6 @@
 #!/bin/sh
 
-# WordPress test setup script for Travis CI 
-#
-# Author: Benjamin J. Balter ( ben@balter.com | ben.balter.com )
-# License: GPL3
+# WordPress test setup script for Travis CI
 
 mkdir -p tmp
 
@@ -26,7 +23,8 @@ cd $WP_CORE_DIR
 
 wp-cli/bin/wp core config --dbname=wordpress_test --dbuser=root --dbhost=localhost
 wp-cli/bin/wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password --admin_email=test@example.com
-curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --count=30
+wp-cli/bin/wp plugin install wordpress-importer --activate
+wp-cli/bin/wp import tests/data.xml --authors=create --skip=attachment
 
 cd ~/build/dkotter/performance-tests
 chmod a+x tests.sh
