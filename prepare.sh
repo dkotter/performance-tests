@@ -25,5 +25,5 @@ composer create-project wp-cli/wp-cli $WP_CORE_DIR/wp-cli --no-dev
 cd $WP_CORE_DIR
 
 wp-cli/bin/wp core config --dbname=wordpress_test --dbuser=root --dbhost=localhost
-wp-cli/bin/wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password
+wp-cli/bin/wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password --admin_email=test@example.com
 curl http://loripsum.net/api/5 | wp-cli/bin/wp post generate --post_content --count=30
