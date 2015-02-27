@@ -22,7 +22,7 @@ tar --strip-components=1 -zxmf tmp/wordpress.tar.gz -C $WP_CORE_DIR
 tests=$(basename $(pwd))
 mv tests $WP_CORE_DIR
 
-cd tmp/wordpress
+cd /tmp/wordpress
 
 wp-cli/bin/wp core config --dbname=wordpress_test --dbuser=root --dbpass= --dbhost=localhost
 wp-cli/bin/wp core install --url=http://example.com --title="Just another test site" --admin_user=wordpress --admin_password=password
