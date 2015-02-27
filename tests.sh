@@ -1,2 +1,2 @@
 #!/bin/sh
-php post-no-in-tests.php
+php tests/post-not-in-tests.php

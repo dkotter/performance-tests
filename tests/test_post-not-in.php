@@ -30,7 +30,7 @@ class Post_Not_In_Tests extends Tests {
 		if ( 'normal' === $test ) {
 			$query_args['posts_per_page'] = 23;
 		} else if ( 'post__not_in' === $test ) {
-			$query_args['post__not_in'] = array( 3971, 3970, 3969, 3968, 2873 );
+			$query_args['post__not_in'] = array( 1, 2, 3, 4, 5 );
 		}
 
 		for ( $i = 0; $i < $n; $i++ ) {

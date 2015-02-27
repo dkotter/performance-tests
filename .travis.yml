@@ -21,7 +21,7 @@ env:
 # Execute setup script
 before_script: source prepare.sh
 
-script: phpunit
+script: source tests.sh
 
 # wordpress-plugin-tests specific config
 # Tells Travis CI not to run unit tests against the setup branch
