@@ -128,6 +128,26 @@ class Tests {
 	}
 
 	/*
+	 * Output our results.
+	 *
+	 * @return array
+	 */
+	public function output_results() {
+		if ( empty( $this->results ) ) {
+			$this->results = $this->calculate_results();
+		}
+
+		foreach ( $this->results as $function => $data ) {
+			echo "$function: \n\n";
+			echo "  --------\n";
+			echo "     Range: {$data['min']} - {$data['max']} seconds\n";
+			echo "    Median: {$data['median']} seconds\n";
+			echo "      Mean: {$data['mean']} seconds\n";
+			echo "        SD: {$data['sd']} seconds\n\n";
+		}
+	}
+
+	/*
 	 * Start our timer.
 	 *
 	 * @return float
