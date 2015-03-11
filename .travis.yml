@@ -17,6 +17,12 @@ php:
 env:
     - WP_VERSION=master WP_MULTISITE=0
 
+# Whitelist branches
+# Only run on master for now
+branches:
+  only:
+    - master
+
 # Execute setup script
 before_script: source prepare.sh
 
