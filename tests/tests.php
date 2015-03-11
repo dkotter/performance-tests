@@ -106,11 +106,11 @@ class Tests {
 		foreach ( $this->groups as $group ) {
 			foreach ( $this->tests as $test ) {
 				$results[ $group ][ $test ] = array(
-					'mean'   => $this->format( $this->get_mean( $this->data[ $test ] ) ),
-					'median' => $this->format( $this->get_median( $this->data[ $test ] ) ),
-					'min'    => $this->format( $this->get_min( $this->data[ $test ] ) ),
-					'max'    => $this->format( $this->get_max( $this->data[ $test ] ) ),
-					'sd'     => $this->format( $this->get_standard_deviation( $this->data[ $test ] ) ),
+					'mean'   => $this->format( $this->get_mean( $this->data[ $group ][ $test ] ) ),
+					'median' => $this->format( $this->get_median( $this->data[ $group ][ $test ] ) ),
+					'min'    => $this->format( $this->get_min( $this->data[ $group ][ $test ] ) ),
+					'max'    => $this->format( $this->get_max( $this->data[ $group ][ $test ] ) ),
+					'sd'     => $this->format( $this->get_standard_deviation( $this->data[ $group ][ $test ] ) ),
 				);
 			}
 		}
@@ -151,11 +151,11 @@ class Tests {
 			$this->results = $this->calculate_results();
 		}
 
-		foreach ( $this->results as $group => $test ) {
+		foreach ( $this->results as $group => $tests ) {
 			echo "$group: \n\n";
 			echo "  --------\n";
 
-			foreach ( $test as $result ) {
+			foreach ( $tests as $test => $result ) {
 				echo "$test: \n\n";
 				echo "  --------\n";
 				echo "     Range: {$result['min']} - {$result['max']} seconds\n";
@@ -198,12 +198,12 @@ class Tests {
 	/*
 	 * Add our result to our data array.
 	 *
-	 * @param string $bucket Test bucket.
+	 * @param string $group Test group.
 	 * @param array $result Test result.
 	 * @return void
 	 */
-	public function add_result( $bucket, $test, $result ) {
-		$this->data[ $bucket ][ $test ][] = $result;
+	public function add_result( $group, $test, $result ) {
+		$this->data[ $group ][ $test ][] = $result;
 	}
 
 	/*
