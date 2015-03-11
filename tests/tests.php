@@ -24,6 +24,13 @@ class Tests {
 	public $tests = array();
 
 	/*
+	 * Store groupings of the tests we want to run.
+	 *
+	 * @var array
+	 */
+	public $groups = array();
+
+	/*
 	 * Store data of the tests we run.
 	 *
 	 * @var array
@@ -42,11 +49,13 @@ class Tests {
 	 *
 	 * @param int $num_tests The number of tests to run.
 	 * @param array $tests The test names to run.
+	 * @param array $groups Groupings for tests.
 	 * @return void
 	 */
-	public function __construct( $num_tests = 1000, $tests = array() ) {
+	public function __construct( $num_tests = 1000, $tests = array(), $groups = array( 'default' ) ) {
 		$this->num_tests = $num_tests;
 		$this->tests = $tests;
+		$this->groups = $groups;
 	}
 
 	/*
@@ -55,8 +64,10 @@ class Tests {
 	 * @return void
 	 */
 	public function run_tests() {
-		foreach ( $this->tests as $test ) {
-			$this->run_test( $this->num_tests, $test );
+		foreach ( $this->groups as $group ) {
+			foreach ( $this->tests as $test ) {
+				$this->run_test( $this->num_tests, $test, $group );
+			}
 		}
 	}
 
@@ -69,14 +80,15 @@ class Tests {
 	 *
 	 * @param int $n Number of tests to run.
 	 * @param string $test Test to run.
+	 * @param string $group Name of group test is part of.
 	 * @return void
 	 */
-	public function run_test( $n, $test ) {
+	public function run_test( $n, $test, $group ) {
 		for ( $i = 0; $i < $n; $i++ ) {
 			$start = $this->start_timer();
 			// Run actual test here
 			$stop = $this->stop_timer();
-			$this->add_result( $test, $this->get_elapsed_time( $start, $stop ) );
+			$this->add_result( $group, $test, $this->get_elapsed_time( $start, $stop ) );
 		}
 	}
 
@@ -91,14 +103,16 @@ class Tests {
 	public function calculate_results() {
 		$results = array();
 
-		foreach ( $this->tests as $test ) {
-			$results[ $test ] = array(
-				'mean'   => $this->format( $this->get_mean( $this->data[ $test ] ) ),
-				'median' => $this->format( $this->get_median( $this->data[ $test ] ) ),
-				'min'    => $this->format( $this->get_min( $this->data[ $test ] ) ),
-				'max'    => $this->format( $this->get_max( $this->data[ $test ] ) ),
-				'sd'     => $this->format( $this->get_standard_deviation( $this->data[ $test ] ) ),
-			);
+		foreach ( $this->groups as $group ) {
+			foreach ( $this->tests as $test ) {
+				$results[ $group ][ $test ] = array(
+					'mean'   => $this->format( $this->get_mean( $this->data[ $test ] ) ),
+					'median' => $this->format( $this->get_median( $this->data[ $test ] ) ),
+					'min'    => $this->format( $this->get_min( $this->data[ $test ] ) ),
+					'max'    => $this->format( $this->get_max( $this->data[ $test ] ) ),
+					'sd'     => $this->format( $this->get_standard_deviation( $this->data[ $test ] ) ),
+				);
+			}
 		}
 
 		return $results;
@@ -137,13 +151,18 @@ class Tests {
 			$this->results = $this->calculate_results();
 		}
 
-		foreach ( $this->results as $function => $data ) {
-			echo "$function: \n\n";
+		foreach ( $this->results as $group => $test ) {
+			echo "$group: \n\n";
 			echo "  --------\n";
-			echo "     Range: {$data['min']} - {$data['max']} seconds\n";
-			echo "    Median: {$data['median']} seconds\n";
-			echo "      Mean: {$data['mean']} seconds\n";
-			echo "        SD: {$data['sd']} seconds\n\n";
+
+			foreach ( $test as $result ) {
+				echo "$test: \n\n";
+				echo "  --------\n";
+				echo "     Range: {$result['min']} - {$result['max']} seconds\n";
+				echo "    Median: {$result['median']} seconds\n";
+				echo "      Mean: {$result['mean']} seconds\n";
+				echo "        SD: {$result['sd']} seconds\n\n";
+			}
 		}
 	}
 
@@ -183,8 +202,8 @@ class Tests {
 	 * @param array $result Test result.
 	 * @return void
 	 */
-	public function add_result( $bucket, $result ) {
-		$this->data[ $bucket ][] = $result;
+	public function add_result( $bucket, $test, $result ) {
+		$this->data[ $bucket ][ $test ][] = $result;
 	}
 
 	/*
