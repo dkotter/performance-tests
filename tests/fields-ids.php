@@ -16,11 +16,12 @@ class Fields_IDs_Tests extends Tests {
 	 * which for now is just a normal query and a post__not_in
 	 * query.
 	 *
-	 * @param int $n Number of tests to run.
+	 * @param int $num Number of tests to run.
 	 * @param string $test Test to run.
+	 * @param string $group Name of group test is part of.
 	 * @return void
 	 */
-	public function run_test( $n, $test ) {
+	public function run_test( $num, $test, $group ) {
 		$query_args = array(
 			'post_type'      => 'post',
 			'post_status'    => 'publish',
@@ -31,11 +32,11 @@ class Fields_IDs_Tests extends Tests {
 			$query_args['fields'] = 'ids';
 		}
 
-		for ( $i = 0; $i < $n; $i++ ) {
+		for ( $i = 0; $i < $num; $i++ ) {
 			$start = $this->start_timer();
 			$query = new WP_Query( $query_args );
 			$stop = $this->stop_timer();
-			$this->add_result( $test, $this->get_elapsed_time( $start, $stop ) );
+			$this->add_result( $group, $test, $this->get_elapsed_time( $start, $stop ) );
 		}
 	}
 
